@@ -1,0 +1,37 @@
+#{extends '/layout/default.html' /}
+#{set title:'Circular Form' /}
+
+<form id="frm" method="post" action="@{Circulars.save()}" class="simpleForm">
+	<div class="clear" style="height:1px">&nbsp;</div>
+  	<fieldset>
+  		<!--
+  		<legend>Circular Info</legend>
+  		<p>
+  		<p>
+  			<label for="username"> Name </label>
+			${circular?.name}
+		</p>
+		
+		<p>
+  			<label for="dateFrom"> Start Date </label>
+			${circular?.startDate}
+		</p>
+		
+		<p>
+  			<label for="dateTo"> End Date </label>
+			${circular?.endDate}
+		</p>
+		-->
+		<p>
+			 ${circular?.description.raw()}
+		</p>
+
+	</fieldset>
+
+  	<div class="action">
+  		<a href="@{Circulars.list()}" class="button">Back</a>
+	</div>	
+</form>
+
+
+		

@@ -1,0 +1,81 @@
+#{extends 'backend.html' /}
+#{set title:'Main' /}
+
+<form id="frm" action="@{Feedbacks.deleteAnswers()}" method="post">
+	<input type="hidden" name="id" value="${feedback.id}">
+	<h1>Feedback List</h1>
+	<h1>${feedback?.name} created by ${feedback.user?.realName} at ${feedback?.createDate}</h1>
+	<div class="buttons">
+	    <span class="button"><input type="button" name="delete" class="delete" value="Delete" id="delete"></span>
+	    <span class="button"><input type="button" name="back" class="back" value="Back" id="back" onclick="goBack('@{Feedbacks.list()}')"></span>
+	</div>
+	<br />
+	<div class="list">
+		<table class="listTable">
+		  <thead>
+		  <tr>
+		  	<th><input type="checkbox" id="all" onclick="checkStatus(this)" name="all"></th>
+		  	<th>Answer</th>
+		    <th>Title</th>
+		    <th>Create Date</th>
+		    <th>Description</th>
+		  </tr>
+		  </thead>
+		  <tbody>
+		  #{list items:feedback.answers, as:'obj'}
+		  <tr class="${(obj_index % 2) == 0 ? 'odd' : 'even'}">
+		  	<td align="center"><input type="checkbox" name="ids" value="${obj.id}" /></td>
+		  	<td>${obj.user?.realName}</td>
+		  	<td>${obj.name}</td>
+		  	<td>${obj.createDate}</td>
+		  	<td>${obj.description}</td>
+		  	</td>
+		  </tr>
+		  #{/list}
+		  </tbody>
+		</table>
+	</div>
+</form>
+
+<h1>Answer</h1>
+<form id="frmAnswer" action="@{Feedbacks.answer()}" method="post">
+	<input type="hidden" name="answer.user.id" value="${session.userid}">
+	<input type="hidden" name="answer.feedback.id" value="${feedback.id}">
+	<div class="buttons">
+		<span class="button"><input type="submit" name="save" class="save" value="Answer" id="save"></span>
+		<span class="button"><input type="button" name="back" class="back" value="Back" id="back" onclick="goBack('@{Feedbacks.listAll()}')"></span>
+	</div>
+	<br />
+    <div class="dialog">
+        <table class="listTable">
+            <tbody>
+                <tr class="prop">
+                    <td valign="top" class="name">
+                        Title
+                    </td>
+                    <td valign="top" class="value">
+                        <input type="text" name="answer.name">
+                    </td>
+                </tr>
+            	<tr class="prop">
+                    <td valign="top" class="name">
+                        Description
+                    </td>
+                    <td valign="top" class="value">
+                    	<input type="text" name="answer.description">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+	$("#delete").click(function(){
+		if(confirm("Are you sure to delete the selected recoreds?")){
+			$("#frm").submit();
+		}
+	})
+
+</script>

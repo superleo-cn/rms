@@ -1,0 +1,30 @@
+#{extends '/layout/default.html' /}
+#{set title:'Facility Form' /}
+
+<h3>Facility Form</h3>	
+<form id="frm" method="post" action="@{Facilities.save()}" class="simpleForm">
+	<input type="hidden" name="facility.id" value="${facility?.id}">
+	<div class="clear" style="height:1px">&nbsp;</div>
+	#{include '/message.html' /}
+  	<fieldset>
+  		<legend>Facility Info</legend>
+  		<p>
+  		<p class="#{ifError 'facility.name'} error #{/ifError}">
+  			<label for="name"> Name * </label>
+			<input id="name" type="text" value="${facility?.name}" name="facility.name"> 
+			<span class="errorSimple">#{error 'facility.name' /}</span>
+		</p>
+		
+		<p>
+  			<label for="description"> Description </label>
+			<input id="description" type="text" value="${facility?.description}" name="facility.description"> 
+			<span class="errorSimple">#{error 'facility.description' /}</span>
+		</p>
+
+	</fieldset>
+
+  	<div class="action">
+		<button type="submit" class="button positive">Save</button>
+  		<a href="@{Facilities.list()}" class="button">Back</a>
+	</div>	
+</form>

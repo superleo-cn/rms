@@ -1,0 +1,55 @@
+#{extends '/layout/default.html' /}
+#{set title:'About Form' /}
+
+#{set 'moreScripts'} 
+	#{script src:'kindeditor/kindeditor-min.js' /}
+#{/set} 
+#{set 'moreStyles'} 
+	<link rel="stylesheet" media="screen" href="@{'/public/javascripts/kindeditor/skins/default.css'}">
+#{/set} 
+
+<h3>About Form</h3>	
+<form id="frm" method="post" action="@{Abouts.save()}" class="simpleForm">
+	<input type="hidden" name="about.id" value="${about?.id}">
+	<div class="clear" style="height:1px">&nbsp;</div>
+	#{include '/message.html' /}
+  	<fieldset>
+  		<p>
+		<p>
+			<textarea id="editor_id" name="about.description" style="width:90%;height:300px;">
+				${about?.description}
+			</textarea>
+		</p>
+
+	</fieldset>
+
+  	<div class="action">
+		<button type="submit" class="button positive">Update</button>
+	</div>	
+</form>
+
+
+<script type='text/javascript'>
+	KE.show({
+		id : 'editor_id',
+		imageUploadJson : '@{Basic.uploadFile}',
+		fileManagerJson : '../../jsp/file_manager_json.jsp',
+		allowFileManager : true,
+		afterCreate : function(id) {
+			KE.event.ctrl(document, 13, function() {
+				KE.util.setData(id);
+				document.forms['example'].submit();
+			});
+			KE.event.ctrl(KE.g[id].iframeDoc, 13, function() {
+				KE.util.setData(id);
+				document.forms['example'].submit();
+			});
+		}
+	});
+	
+	$(function() {
+	});
+		
+</script>		
+
+		

@@ -1,0 +1,310 @@
+a.disable {text-decoration: none;}
+
+.heading {
+	color: #0066CC;
+    font-family: Arial,Verdana;
+    font-size: 180%;
+    font-weight: bold;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+.orange {
+	color: #E28250;
+}
+
+.bodyContent {
+	margin-top:10px;
+	margin-left:4px;
+	margin-right:4px;
+}
+
+.minLabel label {
+	width:75px !important; 
+}
+.workOrderForm label {
+	width:95px !important; 
+}
+
+.workOrderForm div {
+	margin-right: 0px !important;
+}
+
+
+.workOrderForm p {
+	margin-right: 3px !important;
+	margin-bottom: 5px !important;
+}
+
+.tableForm label {
+	width:70px !important;
+}
+
+
+.tableForm  p {
+	margin-right: 5px !important;
+	margin-bottom: 5px !important;
+}
+
+.purchaseOrderForm label {
+	width:100px;
+}
+
+
+
+.purchaseOrderForm p {
+	margin-right: 5px !important;
+	margin-bottom: 5px !important;
+}
+
+.deliveryOrderForm label {
+	width:120px !important;
+}
+
+.pageSpeed {
+	color: #CC9966 !important;
+	text-align: left; 
+}
+
+
+.deliveryOrderForm p {
+	margin-right: 5px !important;
+	margin-bottom: 5px !important;
+}
+
+
+.simpleForm label {
+	width:120px; 
+	float:left;
+	padding-top:0.1em;
+	margin:0;
+	margin-right: 10px;
+	font-weight: bold; 
+}
+
+
+.simpleForm p {
+	margin-right: 10px;
+	margin-bottom: 10px;	
+}
+
+
+
+.simpleForm p span label {
+	float: none !important;
+	font-weight: normal;	
+}
+
+.simpleForm p,.simpleForm a  
+{
+	padding-left:0.8em;
+}
+.simpleForm ul
+{
+	padding-left:2.8em;
+}
+
+.simpleForm .action {
+	padding-left:0em;
+	padding-right:0em;
+	float:right;
+}
+
+h3.title {
+	color:#2A6EAB;
+	
+}
+#whiteBar {
+    background-color: #fff;
+    height: 88px; 
+    left: 0;
+    position: absolute; 
+    width: 100%;
+    z-index: -1;
+}
+
+.subHeader {
+	background-color: #005FCA;
+}
+.accountInfo {
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Verdana", sans-serif;
+	
+}
+.minheight240 {
+	min-height: 240px;
+}
+.minheight300 {
+	min-height: 300px;
+}
+.marginright5 {
+	margin-right: 5px;
+}
+
+
+.centerWrapper {
+    margin-top: 7em;
+    margin-left:18em;
+    width: 520px;
+    font-size:12px;
+    text-align: center;	
+}
+
+.loginWrapper {
+    margin-top: 7em;
+    margin-left:18em;
+    width: 420px;
+    font-size:12px;
+    text-align: center;	
+}
+.loginWrapper .nav
+{
+	text-align:left;
+    margin: 0 0 0 8px;
+    padding: 16px;
+}
+.loginForm {
+	text-align:left;
+	-moz-border-radius: 11px 11px 11px 11px;
+    -moz-box-shadow: 0 4px 18px #C8C8C8;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E5E5E5;
+    font-weight: normal;
+    margin-left: 8px;
+    padding: 16px 16px 40px;
+}
+.loginForm label {
+	font-size:14px;
+	font-weight: normal;
+}
+.loginForm input {
+	font-size:24px;
+	width:100%;
+	font-weight: normal;
+}
+#message ul {
+	padding-top:0px;
+	margin-top: -1px;
+}
+#message li{ 
+	list-style-type: none;
+}
+
+#workOrderWeek {
+	border: 1px solid #ddd;
+	margin : 4px;
+}
+
+.workOrderTitle {
+	padding-left : 4px;
+	padding-top : 4px;
+	font-weight: bold;;
+}
+.woDate {
+	border: 1px solid #E5E5E5;
+	min-height:50px;
+	margin: 4px;
+	
+	text-align: right;
+	background-color: #eee;
+	font-weight: bold; 
+}
+.red {
+	background-color: #FCA9AA;
+}
+
+.grey {
+	background-color: #cdcdcd;
+}
+
+.blue {
+	background-color: #CCE2F6;
+}
+
+.green {
+	background-color: #BFF4D8;
+}
+
+.yellow {
+	background-color: #F5FEB3;
+}
+
+.padding4 {
+	padding : 4px !important;
+}
+.padding2 {
+	padding : 2px !important;
+}
+.zeromargin {
+	margin : 0px  !important;
+}
+
+.margintop4 {
+	margin : 4px  !important;
+}
+
+.marginleft5 {
+	margin : 5px  !important;
+}
+
+.CD_Calendar_Legend {
+	padding-top : 8px;
+	padding-left : 5px;
+	font-size: 11px;
+}
+.CD_Calendar_Legend .title {
+	font-weight: bold; 
+	font-size: 12px;
+}
+
+.progress {
+	background: #eee url(loading.gif) no-repeat center center;
+}
+
+.calendarBtn {
+	background: #eee url(../images/icon_calendar.jpg) no-repeat center center;
+	width: 25px;
+	height:20px;
+}
+
+a{
+	cursor: pointer;
+}
+
+.center td {
+	text-align: center !important;
+}
+
+input[readonly] {
+	 color: #BBBBBB;
+}
+
+button[disabled] {
+	 color: #BBBBBB !important; 
+}
+ 
+.smallHeading {
+	font-size: 11px !important; 
+	font-weight: bold;
+	color: #F22 !important;
+}
+
+.gridSearch  textarea { 
+	width:95%; 
+}
+
+p.simple label {
+	float:none !important;
+	
+}
+
+div.bodyContent h3 {
+	float:left;
+
+}
+
+#digitalTime {
+	font-size: 40px;
+	position: absolute;
+	right:20px;
+	top:20px;
+
+}

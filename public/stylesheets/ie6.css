@@ -1,0 +1,20 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.CD_LoginSession {
+filter: alpha(opacity = 80);
+zoom:1;
+}
+
+#workOrderContent1 select { width:100px }
+
+select {width:200px}
+
+.simpleForm p {
+	margin-right: 0px;
+	margin-bottom: 2px;	
+}
+
+button {
+  padding:4px 10px 3px 7px;   /* IE6 */ 
+}

@@ -1,0 +1,118 @@
+#{extends '/layout/default.html' /}
+#{set title:'Main' /}
+
+<div>
+	<h3 class="left">Circular</h3>
+	#{if ["MGR"].contains(session.userType)}
+	<a href="#" onclick="confirmDelete()" class="button right">
+		<img align="absmiddle" src="@{'/public/images/icon_delete.png'}">  Delete Circular
+	</a>
+	<a href="@{Circulars.create()}" class="button right">
+		<img align="absmiddle" src="@{'/public/images/icon_add.png'}">  Create Circular
+	</a>
+	#{/if}
+	<a onclick="$('.searchCriteria').toggle();" class="button right">
+		<img align="absmiddle" src="@{'/public/images/icon_detail.png'}"> Toggle Search Criteria
+	</a>
+	
+</div>
+
+<div class="clear"></div>
+<form id="frm" action="@{Circulars.list()}" method="post" class="simpleForm">
+	#{include '/message.html' /}
+ 	<div class="searchCriteria">
+	 	<fieldset>
+	 		<legend>Search Criteria</legend>
+			<p>
+			<label>Circular Name </label> 
+			<input type="circular.name">
+			</p>
+		</fieldset>
+		<span class="right">
+			<button type="submit" class="button">Search</button>
+		</span>
+ 	</div>
+
+	<div class="clear"></div>
+	<fieldset>
+	<legend>Search Result</legend>
+	 	#{if paginationList.recordCount==0}
+			<div class="notice">
+				<span class="ui-icon ui-icon-info left marginright5"></span>
+	   			No records 
+	   		</div>
+		#{/if}
+		#{else}
+	  		<table class="gridSearch">
+		 		<thead>	
+		 			<tr>
+			 			<th width="20px"><input type="checkbox" id="all" onclick="checkStatus(this)" name="all"></th>
+			 			<th>S/N</th>
+					    <th>Name</th>
+					    <th>Start Date</th>
+		   		 		<th>End Date</th>
+		    			<th>Create Date</th>
+		    			<th>Create By</th>
+			 			<th width="80px">Action</th>
+		 			</tr>
+		 		</thead>
+	 			<tbody>
+		 			#{list items:paginationList.recordList, as:'obj'}
+				  	<tr class="${(obj_index % 2) == 0 ? 'alt' : ''}">
+				  		<td align="center"><input type="checkbox" name="ids" value="${obj.id}" /></td>
+				  		<td class="seqNo">${obj_index}</td>
+				  		<td><a href="@{Circulars.view(obj.id)}">${obj.name}</a></td>
+				  		<td>${obj.startDate}</td>
+		  				<td>${obj.endDate}</td>
+		  				<td>${obj.createDate}</td>
+		  				<td>${obj.user.realName}</td>  		
+				  		<td>
+			  				#{if ["MGR"].contains(session.userType)}
+			  					<a href="@{Circulars.edit(obj.id)}" class="CD_actions">
+			  						<img align="absmiddle" src="@{'/public/images/icon_edit.png'}"> Edit 
+			  					</a>
+			  				#{/if}
+							#{else}
+								<a href="@{Circulars.view(obj.id)}" class="CD_actions">
+									<img align="absmiddle" src="@{'/public/images/icon_detail.png'}"> View 
+								</a>
+							#{/else}
+		 				</td>
+				  	</tr>
+				  	#{/list}
+	 			</tbody>
+	 			<tfoot>
+	 				<tr>
+	 					<td colspan="10" align="right">
+	 						#{include 'pagination.html' /}
+	 					</td>
+	 				</tr>
+	 			</tfoot>
+	 		</table> 			
+		#{/else}
+	</fieldset>
+</form>	
+
+<script type="text/javascript">
+
+	$(function(){
+		$('.searchCriteria').hide();
+	});
+		
+	function confirmDelete()
+	{
+		$("#deleteDialog").dialog({
+			buttons : {
+				"Delete" : function() {
+					deleteRecord("@{Circulars.delete()}");
+				}
+			}
+		});
+			
+		$("#deleteDialog").dialog('open');
+	}
+	
+</script>
+
+
+

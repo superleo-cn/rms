@@ -1,0 +1,60 @@
+<script type="text/javascript">
+//page code
+function turnPage(pageNumber){
+	document.forms[0].reset();
+	document.forms[0].action = document.forms[0].action + "?paginationList.currentPage=" + pageNumber + "&paginationList.pageSize=${paginationList.pageSize}";
+	document.forms[0].submit()
+}
+function createPagination(doccount,pcount,curpage){
+	if(doccount>0){
+  		var strhtml = "<div id='page'>";
+  		var spoint = (curpage-1)*pcount+1;
+ 	 	if(doccount<=pcount){
+      			strhtml += "("+spoint+" - "+doccount+")/"+doccount+"&nbsp;&nbsp;";
+      			strhtml += "page <font color=#ff0000>1</font> /1 &nbsp;&nbsp;";
+       	}
+    	else{
+      			var epoint = spoint + pcount - 1;
+      			var curpage = epoint/pcount;
+      			var pagesum;
+      			var count = doccount%pcount;
+      			if(count==0)
+        			pagesum = doccount/pcount;
+      			else
+        			pagesum = (doccount-count)/pcount+1;
+      			if(curpage==pagesum)
+        			strhtml += "("+spoint+" - "+doccount+")/"+doccount+"&nbsp;&nbsp;";
+      			else
+        			strhtml += "("+spoint+" - "+(pcount*curpage)+")/"+doccount+"&nbsp;&nbsp;";
+      			strhtml += "page <font color=red>"+curpage+"</font>/"+pagesum+"&nbsp;&nbsp;";
+      			if(curpage==1){
+        			strhtml += "<font color=#aaaaaa>first</font>&nbsp;&nbsp;";
+        			strhtml += "<font color=#aaaaaa>pre</font>&nbsp;&nbsp;";
+         		}
+      			else{
+        			strhtml += "<a href=javascript:turnPage(1)>first</a>&nbsp;&nbsp;";
+        			strhtml += "<a href=javascript:turnPage('"+(curpage-1)+"')>pre</a>&nbsp;&nbsp;";
+          		}
+      			if(curpage==pagesum){
+        			strhtml += "<font color=#aaaaaa>next</font>&nbsp;&nbsp;";
+        			strhtml += "<font color=#aaaaaa>last</font>&nbsp;&nbsp;";
+        	 	}
+      			else{
+        			strhtml += "<a href=javascript:turnPage('"+(curpage+1)+"')>next</a>&nbsp;&nbsp;";
+        			strhtml += "<a href=javascript:turnPage('"+pagesum+"')>last</a>&nbsp;&nbsp;";
+          		}
+      			strhtml += "go <select onchange=turnPage(this.options[this.selectedIndex].value)>"
+      			for(i=1;i<=pagesum;i++){
+        			if(curpage==i)
+          				strhtml += "<option selected value="+i+">"+i;
+        			else
+          				strhtml += "<option value="+i+">"+i;
+             	}
+             	strhtml += "</select>";
+     	}
+     	strhtml += "</div>";
+    	document.write(strhtml);
+	}
+}
+createPagination(${paginationList.recordCount},${paginationList.pageSize},${paginationList.currentPage});
+</script>

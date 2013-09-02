@@ -1,0 +1,177 @@
+
+<script type="text/javascript">
+
+var globalSections = eval('${globalSectionJSON}');
+var globalRoles = eval('${globalRoleJSON}');
+var globalJsCalDateFormat = "%Y-%m-%d";
+var globalJsCalMonthFormat = "%Y-%m";
+var globalJsCalDateWithHourMinuteFormat = "%Y-%m-%d %H:%M";
+var globalJsCalDateFormat = "%Y-%m-%d";
+
+var globalAssetModel;
+var globalAssetModelEquipment;
+var globalAssetModelComponent;
+
+</script>
+
+
+<script type="text/javascript" src="@{'/public/javascripts/common.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/date.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery-1.4.4.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/json.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery-ui-1.8.9.custom.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.hoverIntent.minified.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jscal/jscal2.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jscal/en.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.numeric.js'}"></script>
+
+<script type="text/javascript" src="@{'/public/javascripts/ajaxupload.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.autocomplete.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.ajaxQueue.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/jquery.bgiframe.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/thickbox-compressed.js'}"></script>
+
+
+<link rel="stylesheet" href="@{'/public/stylesheets/jquery-ui/flick/jquery-ui-1.8.9.custom.css'}" type="text/css" />
+<link rel="stylesheet" href="@{'/public/stylesheets/blueprint/screen.css'}" type="text/css" media="screen, projection"/>
+<link rel="stylesheet" href="@{'/public/stylesheets/blueprint/print.css'}"  type="text/css" media="print"/>
+<link rel="stylesheet" href="@{'/public/stylesheets/blueprint/plugins/buttons/screen.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/blueprint/plugins/link-icons/screen.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/jscal/jscal2.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/jscal/border-radius.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/jscal/reduce-spacing.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/common.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/CD-basic.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/menu.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/fileuploader.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/jquery.autocomplete.css'}"  type="text/css" media="screen, projection"  />
+<link rel="stylesheet" href="@{'/public/stylesheets/feedback.css'}"  type="text/css" media="screen, projection"  />
+
+<!--[if (gte IE 6)&(lte IE 8)]>
+  <script type="text/javascript" src="@{'/public/javascripts/selectivizr.js'}"></script>
+<![endif]-->
+
+<!--[if lt IE 8]>
+  <link rel="stylesheet" href="@{'/public/stylesheets/blueprint/ie.css'}" type="text/css" media="screen, projection" />
+<![endif]-->
+
+<!--[if IE 7.0]> 
+  <link rel="stylesheet" href="@{'/public/stylesheets/ie7.css'}"  type="text/css" media="screen, projection"  />
+<![endif]-->
+
+
+<!--[if lt IE 7]> 
+    <script type="text/javascript" src="@{'/public/javascripts/DD_belatedPNG_0.0.8a-min.jS'}"></script>
+    <script> 
+	DD_belatedPNG.fix('.CD_HeaderFloatRight, #homeLogo img, .button img, .CD_Actions img, .CD_addNew img');    
+    </script> 
+    <link rel="stylesheet" href="@{'/public/stylesheets/ie6.css'}"  type="text/css" media="screen, projection"  /> 
+<![endif]-->
+
+
+<div id="disableDialog" title="Confirmation" style="display: none">
+	<p>Are you sure you want to disable record ?</p>
+</div>
+
+<div id="deleteDialog" title="Confirmation" style="display: none">
+	<p>Are you sure you want to delete records ?</p>
+</div>
+
+<div id="approveDialog" title="Confirmation" style="display: none">
+	<p>Are you sure you want to approve record ?</p>
+	<p>
+		Remark: 
+	</p>
+	<p>
+		<textarea id="remark" name="event.remark" style="width:90%;height:50px;"></textarea>
+	</p>
+</div>
+
+<div id="eventSaveDialog" title="Confirmation" style="display: none">
+	<p>Your booking has been made successfully, You need to place a deposit to General Management Office ('MCST2231') within 3 working days.</p>
+</div>
+
+<div id="noRecordDialog" title="No Record" style="display: none">
+	<p>Please select one record first.</p>
+</div>
+
+<div id="errorDialog" title="Error" style="display: none">
+	<p>There is an error during request</p>
+</div>
+
+<div id="waitLoginDialog" title="Please Wait" style="display: none">
+	<p>Please wait while authentication is taking in process</p>
+</div>
+
+<div id="waitCommonDialog" title="Please Wait" style="display: none">
+	<p>Please wait while populating page is in process <img src="@{'/public/images/loadingAnimation.gif'}/"></p>
+</div>
+
+<div id="progressbar"></div>
+
+<script type="text/javascript">
+
+	function formatDate(obj)
+	{
+		if(obj==null) return "";
+		var curMonth = obj.getMonth();
+		curMonth++;
+		if(curMonth<10)
+			curMonth="0"+curMonth;
+		return obj.getFullYear()+"-"+curMonth+"-"+obj.getDate()+" "+obj.getHours()+":"+obj.getMinutes();
+	}
+
+	function confirmDisable(url)
+	{
+		$("#disableDialog").dialog({buttons : {
+			"Disable" : function() {
+				location.href=url;
+			}
+		}});
+		
+		$("#disableDialog").dialog('open');
+	}
+	
+	$(document).ready(function() {
+		$("#disableDialog").dialog({
+			height : 150,
+			width : 340,
+			modal : true,
+			autoOpen : false
+		});
+		
+		$("#errorDialog").dialog({
+			height : 150,
+			width : 340,
+			modal : true,
+			autoOpen : false
+		});
+		
+		$("#waitLoginDialog").dialog({
+			height : 100,
+			width : 300,
+			resizable: false,
+			modal : true,
+			autoOpen : false
+		});
+		
+		$("#waitCommonDialog").dialog({
+			height : 100,
+			width : 350,
+			resizable: false,
+			modal : true,
+			autoOpen : false
+		});
+
+		$("#errorDialog").ajaxError(function(event, request, settings) {
+			
+			aaarquest =request;
+			aaaevent =event;
+			//$(this).html("Error requesting page " + settings.url + "!");
+			//$("#errorDialog").dialog('open');
+		});
+		
+	});
+	
+</script>
+

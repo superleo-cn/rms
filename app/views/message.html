@@ -1,0 +1,20 @@
+#{ifErrors}
+	<div id="message" class="error">
+		<span class="ui-icon ui-icon-circle-close left marginright5"></span>
+		Form has errors
+	</div>
+#{/ifErrors}
+	
+#{if flash.error}
+	<div id="message" class="error">
+		<span class="ui-icon ui-icon-circle-close left marginright5"></span>
+		${flash.error}
+	</div>
+#{/if}
+
+#{if flash.success}
+	<div id="message" class="success">
+		<span class="ui-icon ui-icon-circle-check left marginright5"></span>
+		${flash.success}
+	</div>
+#{/if}

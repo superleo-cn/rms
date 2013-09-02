@@ -1,0 +1,14 @@
+#{extends '/layout/default.html' /}
+#{set title:'About Form' /}
+
+#{set 'moreScripts'} 
+	#{script src:'kindeditor/kindeditor-min.js' /}
+#{/set} 
+#{set 'moreStyles'} 
+	<link rel="stylesheet" media="screen" href="@{'/public/javascripts/kindeditor/skins/default.css'}">
+#{/set} 
+
+
+${about?.description.raw()}	
+
+		

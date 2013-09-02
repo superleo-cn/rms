@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*发表评论*/
+#talk {width:900px; height:auto; margin:15px 0px; } 
+#talk #top {background:url(../images/feedback/erji_34.png) no-repeat; height:6px; width:100%;}
+#talk #center {height:auto; width:900px; margin:0px 15px;}
+#talk #bottom { background:url(../images/feedback/erji_66.png) no-repeat; height:6px; width:990px; padding:0px;}
+
+#talk #comment {height:240px; width:900px; background:url(../images/feedback/erji_39.png) no-repeat top left; margin-top:10px; padding-top:35px;}
+#talk #comment_2 {background:url(../images/feedback/erji_51.png) no-repeat left top; width:900px; margin:1px auto 0px auto ; padding-top:35px;}
+#talk #comment_line {background:url(../images/feedback/erji_59.png) repeat-x; height:2px; width:900px; margin:0px auto 20px auto;}
+#talk .pl {width:900px; height:auto; display:block;margin:20px auto;}
+#talk .pl .pic { width:50px; height:50px; float:left; margin:auto;}
+#talk .pl .text { width:800px; height:auto; float:left; margin-left:10px;}
+#talk .pl .text_2 {width:750px; height:auto; float:left; margin:5px 0px 5px 110px;} 
+#talk .pl .text_2 .hf {border-bottom:1px dashed #999; height:25px; text-align:left; color:#900; font-size:12px; margin-bottom:10px;}
+#talk .pl .text_2 .pic { width:50px; height:50px; float:left; margin:auto;}
+#talk .pl .text_2 .text { width:650px; height:auto; float:left; margin-left:10px;}
+#talk .f1 { color:#060; }
+
+#talk a img { text-decoration:none; border:0 }
+#talk h3 {margin:0; padding:0; font-size:18px; font-family:"微软雅黑", "Book Antiqua", Palatino, serif; color:#C00; line-height:30px; font-weight:normal}
+#talk h4 {margin:3px 3px 3px 0px; padding:0; line-height:30px;}
+#talk h4 a:link {color:#666; text-decoration:none;}
+#talk h5 {margin:0px; padding:0px; line-height:22px; font-weight:normal; font-size:12px; color:#060; }
+#talk h6 {margin:0px; padding:0px; line-height:16px; font-weight:normal; font-size:12px; color:#999; padding-bottom:10px;}
+#talk h6 a:link {color:#999; text-decoration:none;}
+#talk h6 a:hover {color:#C00; text-decoration:underline;}
+#talk p {margin:0; padding:0; line-height:20px; text-align:justify; color:#333}

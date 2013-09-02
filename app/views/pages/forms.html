@@ -1,0 +1,39 @@
+#{extends '/layout/default.html' /}
+#{set title:'Main' /}
+
+<div>
+	<h3 class="left">Forms</h3>
+</div>
+
+<div class="clear"></div>
+<form id="frm" method="post" class="simpleForm">
+	<div class="clear"></div>
+	<fieldset>
+		<table class="gridSearch">
+		  <thead>
+		  <tr>
+		    <th>S/N</th>
+		    <th>Form Name</th>
+		    <th>Download</th>
+		  </tr>
+		  </thead>
+		  <tbody>
+		  #{list items:['APPLICATION_FORM_BULK_DELIVERY_HOUSE_REMOVAL.pdf', 'APPLICATION_FORM_FOR_BBQ_PIT_USAGE.pdf', 'APPLICATION_FROM_FOR_USE_OF_FUNCTION_ROOM.pdf', 'FORM_B1_ADDITIONS_ALTERATIONS_RENOVATION WORKS.pdf', 'FORM_B2_CONTRACTORS_CONFIRMATION_AND_REGISTRATION_FORM.pdf'], as:'obj'}
+		  <tr class="${(obj_index % 2) == 0 ? 'odd' : 'even'}">
+		  	<td class="seqNo">${obj_index}</td>
+		  	<td>${obj}</td>
+		  	<td>
+				<a href="@{'/public/pdfs'}/${obj}" target="_blank">
+					Download
+				</a>
+			</td>
+		  </tr>
+		  #{/list}
+		  </tbody>
+		</table>		
+	</fieldset>
+</form>	
+
+<script type="text/javascript">
+	
+</script>

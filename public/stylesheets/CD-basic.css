@@ -1,0 +1,370 @@
+
+.CD_HeaderFloatLeft {
+    float: left;
+    height: 65px;
+    padding: 10px 0 0;
+    width: 415px;
+    
+}
+
+.CD_HeaderFloatLeft h4 {
+	color: #2A6EAB;
+}
+
+
+
+.CD_HeaderFloatRight{
+	width: 303px;
+	height: 88px;
+	float:right;
+	margin: 0;
+	background:transparent url(../images/comfort/header_rightImage.png) no-repeat;
+}
+
+
+
+/*============== LOGIN SESSION =============*/
+
+.CD_LoginSession {
+	text-align:right;
+	margin: 0 auto;
+	padding: 10px 10px 7px 0;
+	opacity:0.8;
+	background-color:#FFF;
+}
+
+.CD_LoginSession span {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#333333;
+	text-align:right;
+}
+
+.CD_LoginSession .Username {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:bold;
+	color:#333
+}
+
+.CD_LoginSession .Session {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:bold;
+	color:#0066cc;
+	padding-left: 5px;
+}
+
+.CD_LoginSession .Session a:link {
+	color:#005fca;
+}
+
+.CD_LoginSession .Session a:visited {
+	color:#005fca;
+	text-decoration:none;
+}
+
+.CD_LoginSession .Session a:active {
+	color:#0066cc;
+}
+
+.CD_LoginSession .Session a:hover {
+	color:#000000;
+	text-decoration:none;
+}
+
+
+
+/*============== MAIN NAV =============*/
+
+.CD_MainNav {
+	width: 960px;
+	height: 44px;
+	margin: 0 auto;
+}
+
+/*============== CONTENT WRAPPER =============*/
+
+.CD_ContentWrapper {
+	width: 960px;
+	margin: 0 auto;
+}
+
+
+
+
+/*============== TABLE =============*/
+
+.CD_TableWrapper {
+	width: 870px;	
+	height:155px;
+	overflow:auto;
+}
+
+table.CD_table {    
+    border-spacing: 0;
+    border-collapse: collapse;
+    width:890px;	
+	border:#CCC;
+    text-align:left;
+}
+
+.CD_table th {
+    color:#333333;
+    height:32px;
+	padding: 0px 0 0 10px;
+	background:#ebebeb url(../images/tableStripGradient.jpg) repeat-x;
+	text-align:left;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:bold;
+	letter-spacing: -1px;
+	border: 0;
+}
+
+.CD_table tr {
+    margin: 0;
+    padding: 4px;
+    border-width: 1px;
+	background-color:#ffffff;
+}
+
+.CD_table td {
+    margin: 0;
+    padding: 4px;
+    border-width: 1px;
+}
+
+	
+
+
+/*============== FOOTER =============*/
+
+.CD_Footer {
+	height:65px;
+	background-color:#065e9e;
+	color:#FFF;
+}
+
+
+.CD_FooterWrapper {
+	height:65px;
+	margin: 0 auto;
+	text-align:right;
+	background-color:#065e9e;
+	font-weight:bold;	z
+	font-family:Arial, Helvetica, sans-serif;	
+}
+
+
+.CD_FooterWrapper .left {
+	float:left;
+	width:450px;
+	text-align:left;
+	padding: 13px 0 0 10px;
+}
+
+
+.CD_FooterWrapper .right {
+	float:right;
+	width:400px;
+	text-align:right;
+	padding: 13px 10px 0 0;	
+}
+
+
+.CD_FooterWrapper span  {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:bold;
+	color:#ffffff;
+	text-align:right;
+}
+
+
+.CD_FooterWrapper a  {
+		color:#ffffff;
+        text-decoration:none;
+}
+
+.CD_FooterWrapper a:hover  {
+		color:#ffffff;
+        text-decoration:underline;
+}
+
+
+
+/*====CONTENT===*/
+
+.CD_contentContainer {
+	margin: 20px 0;
+}
+
+.tabs ul {
+	margin:0;
+	padding:0;
+}
+
+.tabs ul li {
+	padding:0;
+	list-style:none;
+	float:left;
+	margin:0 0 0 10px;
+	position:relative;
+	width:135px;
+	text-align:center;
+	height:31px;
+}
+
+.tabs ul li.active {
+	background:url(../images/tab_active.jpg) no-repeat;
+}
+.tabs ul li.active img{
+	position:absolute;
+	top:0;
+	left:0;
+}
+.tabs ul li.inactive {
+	background:url(../images/tab_inactive.jpg) no-repeat;
+}
+.tabs ul li span{
+	padding-top:7px;
+	position:relative;
+	display:block;
+	color:#FFF;
+	font-weight:bold;
+}
+.tabs a {
+	padding : 0px;
+	text-decoration: none;
+	color: #fff;
+}
+.content {
+	border:1px solid #e3e2e0;
+	padding: 20px 10px 10px;
+}
+
+
+.CD_contentStatus {
+	
+}
+
+.CD_contentStatus .left {
+float:left;
+width:400px;
+}
+.CD_contentStatus .right {
+float:right;
+width:400px;
+text-align:right;
+}
+.CD_contentStatus span.inprocess {
+	color:#36b109;
+	font-weight:bold;
+}
+
+.CD_contentStatus span.finished {
+	color:#03C;
+	font-weight:bold;
+}
+.head {
+	height:35px;
+	background:url(../images/table_bgTitle.jpg) repeat-x;
+	line-height:35px;
+	padding:0 10px;
+	color:#FFF;
+	font-weight:bold;
+	
+}
+.head span {
+	position: absolute;
+	right:40px;
+}
+.head img {
+	vertical-align: middle !important;
+	margin-right:3px;
+}
+
+.CD_buttons {
+	width:120px;
+	height:36px;
+	background:url(../images/btn_bg.jpg) repeat-x;
+	border:0;
+	text-align:center;
+	color:#FFF;
+	font-size:15px;
+	text-transform:uppercase;
+	font-family:Georgia, "Times New Roman", Times, serif;
+}
+span.CD_buttons, a.CD_buttons {
+	padding:10px;
+	background:url(../images/btn_bg.jpg) repeat-x;
+	border:0;
+	text-align:center;
+	color:#FFF;
+	font-size:15px;
+	text-transform:uppercase;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	text-decoration:none;
+}
+.CD_buttons img {
+	padding-bottom:3px;
+}
+.CD_buttons input {
+	border:0;
+	color:#FFF;
+	font-size:15px;
+	text-transform:uppercase;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	cursor:pointer;
+	height:36px;
+	background:none;
+	padding:0;
+	
+}
+
+.CD_actions {
+text-decoration:none;
+color:#0066CC;
+}
+.CD_addNew {
+text-decoration:none;
+color:#FFF;
+}
+
+/*==========PAGINATION==========*/
+
+.paginationNav {
+	font-size:12px;
+	padding:5px 0;
+	text-align:right;
+	
+}
+.paginationNav div {
+	margin:9px 0;
+}
+.paginationNav a, .paginationNav a:hover, .paginationNav a:visited {
+	padding:2.5px 5px;
+	border:1px solid #ccc;
+	margin: 0 2px;
+	text-decoration:none;
+	color:#0066b8;
+}
+.disable  {
+	border:0 !important;
+	padding:0 !important;
+	color: #000 !important;
+}
+
+/*===============FORMS=================*/
+
+fieldset legend {
+	color: #662233;
+}
+form fieldset {
+	/*background-color:#e4e4e2;*/
+	border:0;
+	position:relative;
+}
+

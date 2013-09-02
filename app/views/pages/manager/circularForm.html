@@ -1,0 +1,89 @@
+#{extends '/layout/default.html' /}
+#{set title:'Circular Form' /}
+
+#{set 'moreScripts'} 
+	#{script src:'kindeditor/kindeditor-min.js' /}
+#{/set} 
+#{set 'moreStyles'} 
+	<link rel="stylesheet" media="screen" href="@{'/public/javascripts/kindeditor/skins/default.css'}">
+#{/set} 
+
+<h3>Circular Form</h3>	
+<form id="frm" method="post" action="@{Circulars.save()}" class="simpleForm">
+	<input type="hidden" name="circular.id" value="${circular?.id}">
+	<input type="hidden" name="circular.user.id" value="${session.userid}">
+	<div class="clear" style="height:1px">&nbsp;</div>
+	#{include '/message.html' /}
+  	<fieldset>
+  		<legend>Circular Info</legend>
+  		<p>
+  		<p class="#{ifError 'circular.name'} error #{/ifError}">
+  			<label for="username"> Name * </label>
+			<input id="username" type="text" value="${circular?.name}" name="circular.name"> 
+			<span class="errorSimple">#{error 'circular.name' /}</span>
+		</p>
+		
+		<p class="#{ifError 'circular.startDate'} error #{/ifError}">
+  			<label for="dateFrom"> Start Date * </label>
+			<input id="dateFrom" type="text" value="${circular?.startDate}" name="circular.startDate"> 
+			<input id="button_dateFrom" type="button" class="calendarBtn" />
+			<span class="errorSimple">#{error 'circular.startDate' /}</span>
+		</p>
+		
+		<p class="#{ifError 'circular.endDate'} error #{/ifError}">
+  			<label for="dateTo"> End Date * </label>
+			<input id="dateTo" type="text" value="${circular?.endDate}" name="circular.endDate"> 
+			<input id="button_dateTo" type="button" class="calendarBtn" />
+			<span class="errorSimple">#{error 'circular.endDate' /}</span>
+		</p>
+		
+		<p>
+  			<label for="description"> Description </label>
+			<textarea id="editor_id" name="circular.description" style="width:90%;height:150px;">
+				${circular?.description}
+			</textarea>
+		</p>
+
+	</fieldset>
+
+  	<div class="action">
+		<button type="submit" class="button positive">Save</button>
+  		<a href="@{Circulars.list()}" class="button">Back</a>
+	</div>	
+</form>
+
+
+<script type='text/javascript'>
+	KE.show({
+		id : 'editor_id',
+		imageUploadJson : '@{Basic.uploadFile}',
+		fileManagerJson : '../../jsp/file_manager_json.jsp',
+		allowFileManager : true,
+		afterCreate : function(id) {
+			KE.event.ctrl(document, 13, function() {
+				KE.util.setData(id);
+				document.forms['example'].submit();
+			});
+			KE.event.ctrl(KE.g[id].iframeDoc, 13, function() {
+				KE.util.setData(id);
+				document.forms['example'].submit();
+			});
+		}
+	});
+	
+	$(function() {
+		cal = Calendar.setup({
+        		onSelect: function(cal) { cal.hide() },
+		    	showTime: false,
+		    	weekNumbers: true,
+	    		selectionType : Calendar.SEL_MULTIPLE,
+	    		selection     : Calendar.dateToInt(new Date()),
+	    		showTime      : 24
+			});
+		cal.manageFields("button_dateFrom", "dateFrom", globalJsCalDateWithHourMinuteFormat);
+		cal.manageFields("button_dateTo", "dateTo", globalJsCalDateWithHourMinuteFormat);
+	});
+		
+</script>		
+
+		

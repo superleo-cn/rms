@@ -1,0 +1,59 @@
+#{extends '/layout/default.html' /}
+#{set title:'User Form' /}
+
+<h3>User Form</h3>	
+<form id="frm" method="post" class="simpleForm">
+	<input type="hidden" name="user.id" value="${user?.id}">
+	<div class="clear" style="height:1px">&nbsp;</div>
+	#{include '/message.html' /}
+  	<fieldset>
+  		<legend>User Info</legend>
+  		<p>
+  		<p class="#{ifError 'user.username'} error #{/ifError}">
+  			<label for="username"> Username * </label>
+			<input id="username" type="text" value="${user?.username}" name="user.username"> 
+			<span class="errorSimple">#{error 'user.username' /}</span>
+		</p>
+		
+		<p class="#{ifError 'user.realName'} error #{/ifError}">
+  			<label for="realName"> RealName * </label>
+			<input id="realName" type="text" value="${user?.realName}" name="user.realName"> 
+			<span class="errorSimple">#{error 'user.realName' /}</span>
+		</p>
+		
+		<p class="#{ifError 'user.password'} error #{/ifError}">
+  			<label for="password"> Password * </label>
+			<input id="password" type="password" value="${user?.password}" name="user.password"> 
+			<span class="errorSimple">#{error 'user.password' /}</span>
+		</p>
+		
+		<p class="#{ifError 'rePassword'} error #{/ifError}">
+  			<label for="rePassword"> Re-Password * </label>
+			<input id="rePassword" type="password" value="${rePassword}" name="rePassword"> 
+			<span class="errorSimple">#{error 'rePassword' /}</span>
+		</p>
+		
+		<p class="#{ifError 'user.unitNo'} error #{/ifError}">
+  			<label for="unitNo"> Unit No * </label>
+			<input id="unitNo" type="text" value="${user?.unitNo}" name="user.unitNo"> 
+			<span class="errorSimple">#{error 'user.unitNo' /}</span>
+		</p>
+
+	</fieldset>
+
+  	<div class="action">
+		<button type="submit" class="button positive">Save</button>
+  		<a href="@{Users.list()}" class="button">Back</a>
+	</div>	
+</form>
+
+<script type="text/javascript">
+	$(function(){
+		var id = "${user?.id}";		
+		if(id){
+			$("#frm").attr("action", "@{Users.update()}");
+		}else{
+			$("#frm").attr("action", "@{Users.register()}");
+		}
+	});
+</script>

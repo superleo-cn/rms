@@ -1,0 +1,102 @@
+#{extends '/layout/default.html' /}
+#{set title:'Main' /}
+
+<div>
+	<h3 class="left">Facility</h3>
+	<a href="#" onclick="confirmDelete()" class="button right">
+		<img align="absmiddle" src="@{'/public/images/icon_delete.png'}">  Delete Facility
+	</a>
+	<a href="@{Facilities.create()}" class="button right">
+		<img align="absmiddle" src="@{'/public/images/icon_add.png'}">  Create Facility
+	</a>
+	<a onclick="$('.searchCriteria').toggle();" class="button right">
+		<img align="absmiddle" src="@{'/public/images/icon_detail.png'}"> Toggle Search Criteria
+	</a>
+</div>
+
+<div class="clear"></div>
+<form id="frm" action="@{Facilities.list()}" method="post" class="simpleForm">
+	#{include '/message.html' /}
+ 	<div class="searchCriteria">
+	 	<fieldset>
+	 		<legend>Search Criteria</legend>
+			<p>
+			<label>Facility Name </label> 
+			<input type="facility.name">
+			</p>
+		</fieldset>
+		<span class="right">
+			<button type="submit" class="button">Search</button>
+		</span>
+ 	</div>
+
+	<div class="clear"></div>
+	<fieldset>
+	<legend>Search Result</legend>
+	 	#{if paginationList.recordCount==0}
+			<div class="notice">
+				<span class="ui-icon ui-icon-info left marginright5"></span>
+	   			No records 
+	   		</div>
+		#{/if}
+		#{else}
+	  		<table class="gridSearch">
+		 		<thead>	
+		 			<tr>
+			 			<th width="20px"><input type="checkbox" id="all" onclick="checkStatus(this)" name="all"></th>
+			 			<th>S/N</th>
+					    <th>Name</th>
+					    <th>Description</th>
+			 			<th width="80px">Action</th>
+		 			</tr>
+		 		</thead>
+	 			<tbody>
+		 			#{list items:paginationList.recordList, as:'obj'}
+				  	<tr class="${(obj_index % 2) == 0 ? 'alt' : ''}">
+				  		<td align="center"><input type="checkbox" name="ids" value="${obj.id}" /></td>
+				  		<td class="seqNo">${obj_index}</td>
+				  		<td><a href="@{Facilities.view(obj.id)}">${obj.name}</a></td>
+				  		<td>${obj.description}</td>
+				  		<td>
+				  			<a href="@{Facilities.view(obj.id)}" class="CD_actions">
+		 						<img align="absmiddle" src="@{'/public/images/icon_edit.png'}"> Edit 
+		 					</a>
+		 				</td>
+				  	</tr>
+				  	#{/list}
+	 			</tbody>
+	 			<tfoot>
+	 				<tr>
+	 					<td colspan="10" align="right">
+	 						#{include 'pagination.html' /}
+	 					</td>
+	 				</tr>
+	 			</tfoot>
+	 		</table> 			
+		#{/else}
+	</fieldset>
+</form>	
+
+<script type="text/javascript">
+
+	$(function(){
+		$('.searchCriteria').hide();
+	});
+		
+	function confirmDelete()
+	{
+		$("#deleteDialog").dialog({
+			buttons : {
+				"Delete" : function() {
+					deleteRecord("@{Facilities.delete()}");
+				}
+			}
+		});
+			
+		$("#deleteDialog").dialog('open');
+	}
+	
+</script>
+
+
+

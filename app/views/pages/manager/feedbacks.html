@@ -1,0 +1,209 @@
+#{extends '/layout/default.html' /}
+#{set title:'Main' /}
+
+<div id="dialog-add-answer" title="Details">
+	<form id="frm" method="post" action="@{Feedbacks.answer()}" class="simpleForm">
+		<input id="feedback" type="hidden" value=""> 
+		<div class="clear" style="height:1px">&nbsp;</div>
+	  	<fieldset>
+	  		<legend>Reply</legend>
+	  		<p>
+	  		<p>
+	  			<label for="name"> Title * </label>
+				<input id="title" type="text" value="" name="event.name"> 
+			</p>
+			<p>
+	  			<label for="name">Reply User </label> ${session.username}
+			</p>
+			<p>
+	  			<label for="description"> Description </label>
+				<textarea id="description" name="answer.description" style="width:300px;height:100px;"></textarea>
+			</p>
+		</fieldset>
+	</form>
+</div>
+
+<div id="dialog-add-feedback" title="Details">
+	<form id="frm" method="post" action="@{Feedbacks.save()}" class="simpleForm">
+		<div class="clear" style="height:1px">&nbsp;</div>
+	  	<fieldset>
+	  		<legend>Reply</legend>
+	  		<p>
+	  		<p>
+	  			<label for="name"> Title * </label>
+				<input id="titleFeedback" type="text" value="" name="feedback.name"> 
+			</p>
+			<p>
+	  			<label for="name">Add User </label> ${session.username}
+			</p>
+			<p>
+	  			<label for="description"> Description </label>
+				<textarea id="descriptionFeedback" name="feedback.description" style="width:300px;height:100px;"></textarea>
+			</p>
+		</fieldset>
+	</form>
+</div>
+
+<div class="clear"></div>
+<form id="frm" action="@{Feedbacks.list()}" method="post">
+<div id="talk">
+	<div id="comment_2"></div>
+	<div align="right">
+  		<a href="javascript:addFeedback()" class="f1">Leave a new Message</a>
+	</div>
+	<div id="comment_line"></div>
+	#{list items:paginationList.recordList, as:'obj'}
+	<div class="pl">
+		<div class="pic"><img src="@{'/public/images/feedback/pic_63.jpg'}" width="50" height="50" /></div>
+	    <div class="text">
+	    	<h5>${obj.user?.realName}
+	    		<span style="padding:0 10%;">
+	    			<a href="javascript:viewFeedback('${obj.id}')" class="f1">Reply</a> 
+	    			#{if ["MGR"].contains(session.userType) || session.userid == obj.user.id.toString() }
+	    				<a href="javascript:confirmDelete('${obj.id}')" class="f1">Delete</a>
+	    			#{/if}
+	    		</span>
+	    	</h5>
+	    	<h6>${obj.createDate} published ${obj.name}</h6>
+	        <p>${obj.description}</p>
+	    </div>&nbsp;
+	    #{list items:obj.answers, as:'answer'}
+	    	<div class="text_2">
+			<div class="hf">Answer</div>
+				<div class="pic"><img src="@{'/public/images/feedback/pic_63.jpg'}" width="50" height="50" /></div>
+				<div class="text">
+					<h6 style="float:right">${answer.createDate}</h6>
+					<h6><a href="#">${answer.user?.realName}</a> replied ${answer.name}</h6> 
+					<p>${answer.description}</p>
+				</div>
+			</div>
+	    #{/list}
+	</div>
+	#{/list}
+
+	<div class="clear"></div>
+	<div align="right">#{include 'pagination.html' /}</div>
+
+</div>
+
+</form>	
+
+
+
+<script type="text/javascript">
+
+	$(function(){
+		$('.searchCriteria').hide();
+		
+		$("#dialog-add-answer").dialog({
+			height: 380,
+			width: 540,
+			modal: true,
+			autoOpen: false,
+			draggable: true,
+			position: 'center',
+			buttons: [{
+        		text: "Save",
+        		click: function() { 
+        			var title =  $("#title").val();
+        			var description = $("#description").val();
+        			var feedback = $("#feedback").val();
+        			$.ajax({
+			            url: '@{Feedbacks.answer()}',
+			            //dataType: 'json',
+			            data: {
+			            	'answer.name': title,
+			            	'answer.description': description,
+			                'answer.user.id': '${session.userid}',
+							'answer.feedback.id': feedback
+				   		},
+				       	success: function(doc) {
+				        	if(doc && doc == 'success'){
+				        		$("#dialog-add-answer").dialog("close"); 
+				            	alert('Add successfully.');
+				            	var showAction = #{jsAction @Feedbacks.list(':id') /}
+  								window.location.href = showAction({id: '${session.userid}'});
+				            }else{
+				            	alert('validation is error, please check your form.');
+				            }
+		            	}
+		        	});
+	        	}
+			},
+			{
+	        	text: "Close",
+	        	click: function() { $(this).dialog("close"); 
+	        }
+    		}] 
+		});
+		
+		
+		
+		$("#dialog-add-feedback").dialog({
+			height: 380,
+			width: 540,
+			modal: true,
+			autoOpen: false,
+			draggable: true,
+			position: 'center',
+			buttons: [{
+        		text: "Save",
+        		click: function() { 
+        			var title =  $("#titleFeedback").val();
+        			var description = $("#descriptionFeedback").val();
+        			$.ajax({
+			            url: '@{Feedbacks.save()}',
+			            //dataType: 'json',
+			            data: {
+			            	'feedback.name': title,
+			            	'feedback.description': description,
+			                'feedback.user.id': '${session.userid}'
+				   		},
+				       	success: function(doc) {
+				        	if(doc && doc == 'success'){
+				        		$("#dialog-add-feedback").dialog("close"); 
+				            	alert('Add successfully.');
+				            	var showAction = #{jsAction @Feedbacks.list(':id') /}
+  								window.location.href = showAction({id: '${session.userid}'});
+				            }else{
+				            	alert('validation is error, please check your form.');
+				            }
+		            	}
+		        	});
+	        	}
+			},
+			{
+	        	text: "Close",
+	        	click: function() { $(this).dialog("close"); 
+	        }
+    		}] 
+		});
+	});
+		
+	function confirmDelete(feedbackId)
+	{
+		$("#deleteDialog").dialog({
+			buttons : {
+				"Delete" : function() {
+					var deleteAction = #{jsAction @Feedbacks.delete(':id') /}
+					deleteSingleRecord(deleteAction({id: feedbackId}));
+				}
+			}
+		});
+			
+		$("#deleteDialog").dialog('open');
+	}
+	
+	function viewFeedback(id) {
+  		$("#feedback").val(id);
+  		$("#dialog-add-answer").dialog('open');
+	}
+	
+	function addFeedback() {
+  		$("#dialog-add-feedback").dialog('open');
+	}
+	
+</script>
+
+
+

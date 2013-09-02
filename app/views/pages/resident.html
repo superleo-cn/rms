@@ -1,0 +1,363 @@
+#{extends '/layout/default.html' /} 
+#{set title:'Main' /}
+
+#{set 'moreScripts'} 
+	#{script src:'fullcalendar/fullcalendar.min.js' /}
+	#{script src:'fullcalendar/gcal.js' /}
+#{/set} 
+
+#{set 'moreStyles'} 
+	<link rel="stylesheet" media="screen" href="@{'/public/javascripts/fullcalendar/fullcalendar.css'}">
+	<link rel="stylesheet" media="print" href="@{'/public/javascripts/fullcalendar/fullcalendar.print.css'}">
+#{/set} 
+
+
+<p>All the facilities</p>
+<p>
+	<a href="#" onclick="javascript:selectCalenderByType('')">ALL</a>
+	#{list items:globle_facilities, as:'obj'}
+		,&nbsp;&nbsp;<a href="#" onclick="selectCalenderByType('${obj.id}')">${obj.name}</a> 
+	#{/list}
+</p>
+<br />
+
+<div id='calendar'></div>
+<div style='clear: both'></div>
+
+<div id="dialog-event" title="Details">
+	<input id="currentEvent" type="hidden" value=""> 
+	<span id="msg_title"></span>
+	<span id="msg_text"></span>
+</div>
+
+<div id="dialog-bulletin" title="Circular">
+	<span id="bulletin_title"></span>
+	<span id="bulletin_text"></span>
+</div>
+
+<div id="dialog-add-event" title="Details">
+
+<form id="frm" method="post" action="@{Events.save()}" class="simpleForm">
+	<div class="clear" style="height:1px">&nbsp;</div>
+  	<fieldset>
+  		<legend>Booking Info</legend>
+  		<p>
+  		<p>
+  			<label for="name"> Unit: </label>
+			<input id="title" type="text" value="${session.userUnitNo}" name="event.name" readonly="readonly"> 
+		</p>
+		<p>
+  			<label for="facilityId"> Facility * </label>
+			#{select 'event.facility.id', items:globle_facilities, labelProperty:'name', valueProperty:'id', value:'', class:'', id:'facilityId' /}
+		</p>	
+		<p class="#{ifError 'event.date'} error #{/ifError}">
+  			<label for="date"> Date * </label>
+			<input id="date" type="text" value="${event?.date}" name="event.date"> 
+			<input id="button_date" type="button" class="calendarBtn" />
+		</p>
+		<p class="#{ifError 'event.eventSession.id'} error #{/ifError}">
+  			<label for="dateFrom"> Session * </label>
+			#{select 'event.eventSession.id', items:globle_eventSessions, labelProperty:'name', valueProperty:'id', value:'', class:'', id:'eventSessionId' /}
+		</p>
+		<!--
+			<p>
+	  			<label for="username"> Color * </label>
+				#{select 'event.color', id:'eventColor'}
+					#{option 'green'}Green#{/option}
+					#{option 'blue'}Blue#{/option}
+					#{option 'red'}Red#{/option}
+				#{/select}
+			</p>
+		-->
+		<p>
+  			<label for="description"> Description </label>
+			<textarea id="description" name="event.description" style="width:300px;height:100px;">${event?.description}</textarea>
+		</p>
+	</fieldset>
+</form>
+
+
+</div>
+
+<script type='text/javascript'>
+	
+	var facilities = null;
+	var calendar = null;
+	var defaultColor = "gray";
+	var approvedColor = "green";
+	
+	$(function() {
+		// load bulletins
+		$.getJSON("@{Circulars.circularAjax}", function(data){
+			if(data){
+				$("#bulletin_title").html("<h2>" + data.name + "</h2>");
+				$("#bulletin_text").html(data.description);	
+				$("#dialog-bulletin").dialog('open');
+			}
+		});		
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		/* initialize the calendar
+		-----------------------------------------------------------------*/
+		calendar = selectCalenderByType('');
+		
+		
+		$("#dialog-bulletin").dialog({
+			height: 500,
+			width: 600,
+			modal: true,
+			autoOpen: false,
+			draggable: true,
+			position: 'center'
+		});
+		
+		
+		$("#dialog-add-event").dialog({
+			height: 480,
+			width: 540,
+			modal: true,
+			autoOpen: false,
+			draggable: true,
+			position: 'center',
+			buttons: [{
+        		text: "Save",
+        		click: function() { 
+        			var title =  $("#title").val();
+        			var description = $("#description").val();
+        			var date = $("#date").val();
+        			var title =  $("#title").val();
+        			var facilityId =  $("#facilityId").val();
+        			var eventSessionId =  $("#eventSessionId").val();
+        			var eventColor =  defaultColor;
+        			$.ajax({
+			            url: '@{Events.save()}',
+			            data: {
+			            	'event.name': title,
+			            	'event.description': description,
+			                'event.date': date,
+			                'event.user.id': '${session.userid}',
+							'event.facility.id': facilityId,
+							'event.eventSession.id': eventSessionId,
+							'event.color': defaultColor
+				   		},
+				       	success: function(doc) {
+				        	if(doc && doc.flag == 'success'){
+								calendar.fullCalendar('renderEvent',{
+										id: doc.eventId,
+										title: doc.eventName,
+										start: date + " " + doc.startTime,
+										end: date + " " + doc.endTime,
+										color: eventColor,
+										allDay: false
+									},
+									false // make the event "stick"
+								);
+				            	$('#dialog-add-event').dialog("close");
+				            	$("#eventSaveDialog").dialog({modal: true});
+								$("#eventSaveDialog").dialog('open');
+				            	
+				            }else{
+				            	$("#errorDialog").dialog({modal: true});
+				            	$("#errorDialog").html("<p>"+doc.message+"</p>");
+								$("#errorDialog").dialog('open');
+				            }
+		            	}
+		        	});
+	        	}
+			},
+			{
+	        	text: "Close",
+	        	click: function() { $(this).dialog("close"); 
+	        }
+    		}] 
+		});
+
+
+		cal = Calendar.setup({
+        		onSelect: function(cal) { cal.hide() },
+		    	showTime: false,
+		    	weekNumbers: true,
+	    		selectionType : Calendar.SEL_MULTIPLE,
+	    		selection     : Calendar.dateToInt(new Date()),
+	    		showTime      : 24
+			});
+			cal.manageFields("button_date", "date", globalJsCalDateFormat);
+		});
+		
+		function getCalenderTitle(){
+			var view = $('#calendar').fullCalendar('getView');
+			alert("The view's title is " + view.title);
+		}
+		
+		function selectCalenderByType(type){
+			$('#calendar').html("");
+			calendar = $('#calendar').fullCalendar
+			({
+				header : {
+					left : 'prev,next today',
+					center : 'title',
+					right : 'month,agendaWeek,agendaDay'
+
+				},
+				editable : false,
+				droppable : false, // this allows things to be dropped onto the calendar !!!
+				selectable: true,
+				selectHelper: true,
+				select: function(_start, _end, _allDay) {
+					$("#date").val(_start.toString('yyyy-MM-dd'));
+					$("#dialog-add-event").dialog('open');
+				},
+				//backend json
+				events: function(start, end, callback) {
+			        $.ajax({
+			            url: '@{Events.listAsJson}',
+			            dataType: 'json',
+			            cache: false,
+			            data: {
+			            	type: type,
+			                start: start.toString("yyyy-MM-dd"),
+			                end: end.toString("yyyy-MM-dd")
+			            },
+			            success: function(doc) {
+			                var events = [];
+			                $(doc).each(function(i, e) {
+			                	var startDate = e.date + " " + e.eventSession.startTime;
+			                	var endDate = e.date + " " + e.eventSession.endTime;
+			                	events.push({
+			                		id: e.id,
+			                        title: e.name,
+			                        start: startDate,
+			    					end: endDate,
+			    					allDay: false,
+			    					description: e.description,
+			    					color: e.color,
+			    					userId: e.user.id,
+			    					remark: e.remark
+			                    });
+			                    
+			                });
+			                callback(events);
+			            }
+			        });
+			    },
+			    // when you click the day, it will set it's important
+			    dayClick: function(date, allDay, jsEvent, view) {
+			        // change the day's background color just for fun
+			        //if($(this).css('background-color') == 'rgba(0, 0, 0, 0)'){
+			        //	$(this).css('background-color', 'yellow');
+			        //}else{
+			        //	$(this).css('background-color', '');
+			        //}
+			    },
+				// when you click the event, it will show more infomation
+				eventClick: function(calEvent, jsEvent, view) {
+			        // change the border color just for fun
+			        // $(this).css('border-color', 'red');
+			        // view detail
+					$("#msg_title").html("<h2>" + calEvent.title + "</h2>");
+					$("#msg_text").html(calEvent.description);
+					
+					#{if ["MGR"].contains(session.userType)}
+						var remark = calEvent.remark ? calEvent.remark : "";
+						$("#msg_text").html("<br />REMARK: " + remark);
+					#{/if}
+					
+					$("#currentEvent").val(calEvent.id);
+					var dialog_buttons = new Array();
+					
+					#{if ["MGR"].contains(session.userType)}
+					if(approvedColor != calEvent.color){	
+						var approve = {
+				        		text: "Approve",
+				        		click: function() { 
+					        		$("#approveDialog").dialog({
+					        			modal: true,
+										buttons : {
+											"Approve" : function() {
+												$.ajax({
+									            	url: '@{Events.approveAjax()}',
+									            	data: {
+									                	'id': $("#currentEvent").val(),
+									                	'remark': $("#remark").val()
+										   			},
+										       		success: function(doc) {
+										        		if(doc && doc == 'success'){
+															$("#approveDialog").dialog('close');
+								            				$("#dialog-event").dialog("close");
+								            				calEvent.color = approvedColor;
+								            				calEvent.remark = $("#remark").val();
+								            				calendar.fullCalendar('updateEvent', calEvent);
+								            			}else{
+								            				alert('validation is error, please check your form.');
+								            			}
+						            				}
+						        				});
+											}
+										}
+									});
+									$("#approveDialog").dialog('open');
+					       		}
+						}	
+						dialog_buttons.push(approve);
+					}	
+					#{/if}	
+					
+					if("${session.userid}" == calEvent.userId){
+						var deletes = {
+							text: "Delete",
+			        		click: function() { 
+				        		$("#deleteDialog").dialog({
+				        			modal: true,
+									buttons : {
+										"Delete" : function() {
+											$.ajax({
+								            	url: '@{Events.deleteById()}',
+								            	data: {
+								                	'id': $("#currentEvent").val()
+									   			},
+									       		success: function(doc) {
+									        		if(doc && doc == 'success'){
+														calendar.fullCalendar('removeEvents',[$("#currentEvent").val()]);
+														$("#deleteDialog").dialog('close');
+								            			$("#dialog-event").dialog("close");
+								            		}else{
+								            			alert('validation is error, please check your form.');
+								            		}
+						            			}
+						        			});
+										}
+									}
+								});
+								$("#deleteDialog").dialog('open');
+					      	}
+						}
+						dialog_buttons.push(deletes);
+					}
+					
+					var close = {
+					 	text: "Close",
+					    click: function() { $(this).dialog("close"); }
+					}
+					dialog_buttons.push(close);
+
+					$("#dialog-event").dialog({
+						height: 300,
+						width: 400,
+						modal: true,
+						autoOpen: false,
+						draggable: true,
+						position: 'center',
+						buttons: dialog_buttons
+					});
+
+				$("#dialog-event").dialog('open');	
+		    }
+		});
+		return calendar;
+	    }
+	
+</script>

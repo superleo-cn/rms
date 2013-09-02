@@ -1,0 +1,48 @@
+#{extends '/layout/default.html' /}
+
+#{set 'moreScripts'} 
+	#{script src:'lightbox/jquery.lightbox-0.5.min.js' /}
+#{/set} 
+
+#{set 'moreStyles'} 
+	<link rel="stylesheet" media="screen" href="@{'/public/javascripts/lightbox/css/jquery.lightbox-0.5.css'}">
+#{/set} 
+
+
+<div class="span-23">
+	<table id="show" border="0" cellpadding="20" cellspacing="20" width="100%">
+		<tr>
+	  		<th colspan="5"><h3>Welcome to Resident Management System (RMS) &nbsp;&nbsp&nbsp</h3></th>
+	  	</tr>
+
+		#{list items:1..13, as:'obj'}
+		#{if obj_index % 5 == 1}
+			<tr>
+		  		
+		#{/if }
+			<td align="center" height="120px"> 
+	  			<a href="@{'/public/images/show/'+obj+'.jpg'}">
+                	<img width="150px" height="100px" src="@{'/public/images/show/'+obj+'.jpg'}" />
+           	 	</a>
+	  		</td>
+		#{if obj_index % 5 == 0}
+		  	</tr>
+		#{/if }
+		#{/list}
+		</tbody>
+	</table>
+</div> 
+
+<div class="clear"></div>
+
+<script type="text/javascript">
+	$(function() {
+    	$('#show a').lightBox({
+			imageLoading:'@{'/public/javascripts/lightbox/images/lightbox-ico-loading.gif'}',		// (string) Path and the name of the loading icon
+			imageBtnPrev:'@{'/public/javascripts/lightbox/images/lightbox-btn-prev.gif'}',			// (string) Path and the name of the prev button image
+			imageBtnNext:'@{'/public/javascripts/lightbox/images/lightbox-btn-next.gif'}',			// (string) Path and the name of the next button image
+			imageBtnClose:'@{'/public/javascripts/lightbox/images/lightbox-btn-close.gif'}',		// (string) Path and the name of the close btn
+			imageBlank:'@{'/public/javascripts/lightbox/images/lightbox-blank.gif'}'
+    	});
+	});
+</script>  

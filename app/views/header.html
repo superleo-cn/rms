@@ -1,0 +1,23 @@
+<div class="header clearfix">       
+    <!-- START FLOAT LEFT -->     
+	<div class="CD_HeaderFloatLeft">
+    	<a href="@{Home.welcome()}">
+			<img width="256px" height="35px" src="@{'/public/images/comfort/logo.png'}" />
+		</a>
+  		<h4 class="title"> Resident Management System (RMS) </h4>
+  	</div>   
+    <!-- START FLOAT RIGHT -->     
+    <div class="CD_HeaderFloatRight">
+    	<div class="CD_LoginSession">
+        	<span><img align="absmiddle" src="@{'/public/images/iconAdmin.jpg'}"></span>&nbsp;&nbsp;
+
+			<span class="Username">${session.userRealname}
+				<a href="@{Home.logout()}">Log Out</a>
+			</span>
+			<br>
+			<span class="smallHeading">
+				Hume Park II
+			</span>
+		</div>  
+ 	</div>
+</div>

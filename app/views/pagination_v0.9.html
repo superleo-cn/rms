@@ -1,0 +1,51 @@
+
+<div class="paginationNav">
+<div>
+	<a href="?curPage=1" class="firstNav" >first</a>
+	<a href="?curPage=${paginationList.curPage-1}" class="prevNav">prev</a>
+
+	#{list items:paginationList.page, as:'item'}
+		#{if item==paginationList.curPage}
+			${item}
+		#{/if}
+		#{else}
+			<a href="?curPage=${item}">${item}</a>
+		#{/else}
+	#{/list}
+	<a href="?curPage=${paginationList.curPage+1}" class="nextNav">next</a>
+	<a href="?curPage=${paginationList.maxPage}" class="lastNav" >last</a>
+</div>
+
+<div>
+Page : <b>${paginationList.curPage}/${paginationList.maxPage} - ${paginationList.resultCount} record(s) </b> 
+ |
+Max Row : 
+<a href="?maxRow=10&curPage=1" class="row10Nav">10</a>
+<a href="?maxRow=50&curPage=1" class="row50Nav">50</a>
+<a href="?maxRow=100&curPage=1" class="row100Nav">100</a>
+</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		var paginationNav = $('.paginationNav');
+		var curPage = '${paginationList.curPage}';
+		var maxPage = '${paginationList.maxPage}';
+		var maxRow = '${paginationList.maxRow}';
+		
+		$('a.row'+maxRow+'Nav').removeAttr('href');
+		$('a.row'+maxRow+'Nav').addClass('disable');
+		
+		if(maxPage==curPage)
+		{
+			$('a.lastNav,a.nextNav').removeAttr('href');
+			$('a.lastNav,a.nextNav').addClass('disable');
+		}
+		
+		if(1==curPage)
+		{
+			$('a.firstNav,a.prevNav').removeAttr('href');
+			$('a.firstNav,a.prevNav').addClass('disable');
+		}
+	});
+</script>

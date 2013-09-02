@@ -1,0 +1,106 @@
+
+<ul id="menu" class="menu">
+	<li class="mega">
+		<h2><a href="@{Home.welcome()}">Home</a></h2>
+	</li>
+	#{if ["MGR"].contains(session.userType)}
+	<li class="mega">
+		<h2><a href="#">Manage</a></h2>
+		<div>
+			<h3>Users</h3>
+			<p>
+		      	<a href="@{Users.list()}">User List</a>,
+				<a href="@{Users.create()}">User Create</a> 
+			</p>
+	
+			<h3>Facilities</h3>
+			<p>
+		        <a href="@{Facilities.list()}">Facility List</a>,
+		        <a href="@{Facilities.create()}">Facility Create</a>
+		    </p>
+			
+			<h3>Booking</h3>		
+		    <p>
+				<a href="@{Events.list()}">Booking List</a>
+			</p>
+			
+			<h3>Circular</h3>
+			<p>
+	      		<a href="@{Circulars.list()}">Circular List </a>,
+	      		<a href="@{Circulars.create()}">Circular Create </a>
+	     	</p>
+			<h3>Feedback</h3> 
+			<p>
+				<a href="@{Feedbacks.list()}">Feedback List </a>
+			</p>
+			<h3>About</h3> 
+			<p>
+				<a href="@{Abouts.edit(1)}">Edit About</a>
+			</p>
+		</div>
+	</li>
+	#{/if}
+	
+	<li class="mega">
+		<h2><a href="@{Home.events()}">Booking</a></h2>
+	</li>
+	
+	<li class="mega">
+		<h2><a href="@{Home.forms()}">Forms</a></h2>
+	</li>
+	
+	<li class="mega">
+		<h2><a href="@{Circulars.list}">Circulars</a></h2>
+	</li>
+	
+	<li class="mega">
+		<h2><a href="@{Feedbacks.list}">Feedbacks</a></h2>
+	</li>
+	
+	<li class="mega">
+		<h2><a href="@{Abouts.view(1)}">About</a></h2>
+	</li>
+
+	#{if false}
+	<li class="mega">
+		<h2><a href="#">Report</a></h2>
+		<div class="list">
+		<p>
+	        <a href="#">Visitor Access Detail Report</a>
+	    </p>
+	    <p>
+	        <a href="#">Visitor Statistic Report</a>
+	    </p>
+	    <p>
+	        <a href="#">Security Guard Attendent Report</a>
+		</p>
+		<p>
+	        <a href="#">Security Guard KPI Report</a>
+		</p>
+		</div>
+	</li>
+	#{/if}
+</ul>
+
+<script type="text/javascript">
+
+$(function(){
+    function addMega(){     	 
+      	$(this).addClass("hovering").css('z-index', 2).animate({ backgroundColor: "#EE7700" }, 500);  
+    } 
+
+    function removeMega(){
+      	$(this).removeClass("hovering").css('background-color','');
+    }
+
+  	var megaConfig = {
+   		interval: 100,
+       	sensitivity: 4,
+       	over: addMega,
+       	timeout: 500,
+       	out: removeMega
+  	};
+
+	$("li.mega").hoverIntent(megaConfig)
+});
+</script>

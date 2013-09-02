@@ -1,0 +1,131 @@
+#{extends '/layout/default.html' /}
+#{set title:'Main' /}
+
+<div>
+	<h3 class="left">Event</h3>
+	#{if ["MGR"].contains(session.userType)}
+	<a href="#" onclick="confirmDelete()" class="button right">
+		<img align="absmiddle" src="@{'/public/images/icon_delete.png'}">  Delete Booking
+	</a>
+	#{/if}
+	<a onclick="$('.searchCriteria').toggle();" class="button right">
+		<img align="absmiddle" src="@{'/public/images/icon_detail.png'}"> Toggle Search Criteria
+	</a>
+</div>
+
+<div class="clear"></div>
+<form id="frm" action="@{Events.list()}" method="post" class="simpleForm">
+	#{include '/message.html' /}
+ 	<div class="searchCriteria">
+	 	<fieldset>
+	 		<legend>Search Criteria</legend>
+			<p>
+			<label>Booking Name </label> 
+			<input type="event.name">
+			</p>
+		</fieldset>
+		<span class="right">
+			<button type="submit" class="button">Search</button>
+		</span>
+ 	</div>
+
+		<div class="clear"></div>
+	<fieldset>
+	<legend>Search Result</legend>
+	 	#{if paginationList.recordCount==0}
+			<div class="notice">
+				<span class="ui-icon ui-icon-info left marginright5"></span>
+	   			No records 
+	   		</div>
+		#{/if}
+		#{else}
+	  		<table class="gridSearch">
+		 		<thead>	
+		 			<tr>
+			 			<th width="15px"><input type="checkbox" id="all" onclick="checkStatus(this)" name="all"></th>
+			 			<th>S/N</th>
+					    <th>User Name</th>
+					    <th>Facility</th>
+					    <th>Booking title</th>
+					    <th>Date</th>
+					    <th>Session</th>
+					    <th width="200px">Description</th>
+					    <th>Status</th>
+					    <th>Remark</th>
+		 			</tr>
+		 		</thead>
+	 			<tbody>
+		 			#{list items:paginationList.recordList, as:'obj'}
+				  	<tr class="${(obj_index % 2) == 0 ? 'alt' : ''}">
+				  		<td align="center"><input type="checkbox" name="ids" value="${obj.id}" /></td>
+				  		<td class="seqNo">${obj_index}</td>
+				  		<td>${obj.user?.realName}</td>
+					  	<td>${obj.facility?.name}</td>
+					  	<td>${obj.name}</td>
+					  	<td>${obj.date}</td>
+					  	<td>${obj.eventSession.name}</td>
+					  	<td>${obj.description}</td>		
+					  	<td>
+					  		#{if obj.color == 'gray'}
+					  			Reservation 
+					  			<a href="#" onclick="confirmApprove('${obj.id}')" class="right">
+  									Approve
+								</a>
+					  		#{/if} 
+					  		#{else} 
+					  			Approved 
+					  		#{/else}
+					  	</td>
+					  	<td>${obj.remark}</td>	
+				  	</tr>
+				  	#{/list}
+	 			</tbody>
+	 			<tfoot>
+	 				<tr>
+	 					<td colspan="10" align="right">
+	 						#{include 'pagination.html' /}
+	 					</td>
+	 				</tr>
+	 			</tfoot>
+	 		</table> 			
+		#{/else}
+	</fieldset>
+</form>	
+
+<script type="text/javascript">
+
+	$(function(){
+		$('.searchCriteria').hide();
+	});
+		
+	function confirmDelete()
+	{
+		$("#deleteDialog").dialog({
+			buttons : {
+				"Delete" : function() {
+					deleteRecord("@{Events.delete()}");
+				}
+			}
+		});
+			
+		$("#deleteDialog").dialog('open');
+	}
+	
+	function confirmApprove(eventId)
+	{
+		$("#approveDialog").dialog({
+			buttons : {
+				"Approve" : function() {
+					var showUserAction = #{jsAction @Events.approve(':id', ':remark') /}
+					window.location.href = showUserAction({id: eventId, remark: $("#remark").val()});
+				}
+			}
+		});
+			
+		$("#approveDialog").dialog('open');
+	}
+	
+</script>
+
+
+

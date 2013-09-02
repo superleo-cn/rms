@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>  
+	<head>
+		<head>
+		<title>default page</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />	
+		#{include 'javascript.html' /}
+		#{get 'moreStyles' /}
+		#{get 'moreScripts' /}
+		<style type="text/css">
+			body { background:#999;}
+		</style>
+	</head>
+	
+  	<body>
+  	<div id="whiteBar"></div>
+   		<div class="container">
+   			#{include 'header.html' /}
+		    #{include 'menu.html' /} 
+		    <div class="span-24 last minheight300">
+		    	<div class="bodyContent content clearfix">
+	    			#{doLayout /}
+	    		</div>  
+		    </div>
+		  	#{include 'footer.html' /} 
+		</div>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+#{extends '/layout/blank.html' /} 
+#{set title:'Login' /}
+<div class="loginWrapper">
+	<h1>
+		<img src="@{'/public/images/comfort/logo_login.jpg'}" />
+	</h1>
+	<h3 align="center">Please Log In to Your Account</h3>
+	<form action="@{Home.login()}" method="post" class="loginForm">
+		<label for="j_username">Username</label> 
+		<br /> 
+		<input id="j_username" name="vo.username" size="20" maxlength="50" type="text" value="${vo?.username}" /> 
+		<br /> 
+		<label for="j_password">Password</label> 
+		<br />
+		<input id="j_password" name="vo.password" size="20" maxlength="50" type="password"  value="${vo?.password}" /> 
+		<br /> 
+		<button class="button positiveDark right" type="submit">Login</button>
+		#{errors}
+			<div class="clear"></div>
+		    <div class="error">${error}</div>
+		#{/errors}
+		
+		#{if flash.error}
+			<div class="clear"></div>
+			<div class="error">${flash.error}</div>
+		#{/if}
+	</form>
+	<div class="nav">
+		<span>&copy; Copyright 2011 Singapore </span>
+	</div>
+</div>
+
+
