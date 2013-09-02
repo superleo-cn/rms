@@ -1,0 +1,15 @@
+# Project file
+.classpath
+.project
+.settings
+
+# Compile
+*.class
+
+# Package Files #
+eclipse
+modules
+tmp
+*.war
+*.ear
+*.zip
