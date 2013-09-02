@@ -1,5 +1,6 @@
-rms
-===
+rms v0.1
+========
+
 Application Source Code & Checking runable
 
 1. download playframework 1.6 (JDK1.7)
