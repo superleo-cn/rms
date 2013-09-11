@@ -30,9 +30,8 @@ Eclipse setup
 2. Once you finish the step, you can use eclipse to import the project
 
 3. please DO NOT check in the generated folders. Different user likes different IDE, so just keep the project as clean as we can. Currently the nessesary folders are:
-
-app  (All the Java source code)
-test (Junit test case)
-conf (properties files, eg, db connection, url path)
-lib  (3rd parties dependent liberaries)
-public (All the javascript, css and images)
+>app  (All the Java source code) <br />
+>test (Junit test case) <br />
+>conf (properties files, eg, db connection, url path) <br />
+>lib  (3rd parties dependent liberaries) <br />
+>public (All the javascript, css and images)
